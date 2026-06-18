@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organic Wellness</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Manrope', sans-serif; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  .float { animation: float 6s ease-in-out infinite; }
+
+  #floatingNav {
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  /* Full-screen drawer slides in from the right */
+  #mobileDrawer {
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #mobileDrawer.open {
+    transform: translateX(0);
+  }
+
+  /* Backdrop */
+  #drawerBackdrop {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  #drawerBackdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Staggered nav link entrance */
+  #mobileDrawer li {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  #mobileDrawer.open li:nth-child(1) { opacity:1; transform:translateX(0); transition-delay:0.18s; }
+  #mobileDrawer.open li:nth-child(2) { opacity:1; transform:translateX(0); transition-delay:0.26s; }
+  #mobileDrawer.open li:nth-child(3) { opacity:1; transform:translateX(0); transition-delay:0.34s; }
+  #mobileDrawer.open li:nth-child(4) { opacity:1; transform:translateX(0); transition-delay:0.42s; }
+
+  .drawer-cta {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  #mobileDrawer.open .drawer-cta {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.50s;
+  }
+
+  /* Hamburger → X morph */
+  .ham-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+    transform-origin: center;
+  }
+  .is-open .ham-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .is-open .ham-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .is-open .ham-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+</style>
+</head>
+
+<body class="bg-[#DFF2E3] overflow-x-hidden">
+
+  <!-- ===================== FULL-SCREEN MOBILE DRAWER ===================== -->
+
+  <!-- Backdrop -->
+  <div id="drawerBackdrop"
+    class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] md:hidden">
+  </div>
+
+  <!-- Drawer panel -->
+  <div id="mobileDrawer"
+    class="fixed inset-y-0 right-0 w-full bg-[#DFF2E3] z-[70] md:hidden flex flex-col px-8 py-8">
+
+    <!-- Drawer header -->
+    <div class="flex items-center justify-between mb-12">
+      <span class="text-2xl font-extrabold text-gray-900">ORGANIC</span>
+      <button id="drawerClose"
+        class="is-open w-10 h-10 flex flex-col justify-center items-center gap-[5px] rounded-full bg-white shadow"
+        aria-label="Close menu">
+        <span class="ham-bar"></span>
+        <span class="ham-bar"></span>
+        <span class="ham-bar"></span>
+      </button>
+    </div>
+
+    <!-- Nav links -->
+    <ul class="flex flex-col gap-2 flex-1">
+      <li>
+        <a href="#" onclick="closeDrawer()"
+          class="flex items-center justify-between text-4xl font-extrabold text-gray-900 py-4 border-b border-black/10 hover:pl-2 transition-all">
+          Home
+          <span class="text-2xl text-gray-400">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" onclick="closeDrawer()"
+          class="flex items-center justify-between text-4xl font-extrabold text-gray-900 py-4 border-b border-black/10 hover:pl-2 transition-all">
+          Products
+          <span class="text-2xl text-gray-400">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" onclick="closeDrawer()"
+          class="flex items-center justify-between text-4xl font-extrabold text-gray-900 py-4 border-b border-black/10 hover:pl-2 transition-all">
+          About
+          <span class="text-2xl text-gray-400">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" onclick="closeDrawer()"
+          class="flex items-center justify-between text-4xl font-extrabold text-gray-900 py-4 border-b border-black/10 hover:pl-2 transition-all">
+          Contact
+          <span class="text-2xl text-gray-400">→</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- CTA at bottom -->
+    <div class="drawer-cta mt-auto pt-8">
+      <button class="w-full bg-black text-white py-4 rounded-full text-lg font-semibold hover:scale-[1.02] transition">
+        Sign Up
+      </button>
+      <p class="text-center text-sm text-gray-500 mt-4">Natural wellness, delivered.</p>
+    </div>
+  </div>
+
+  <!-- ===================== FLOATING NAVBAR ===================== -->
+  <nav id="floatingNav"
+    class="fixed top-5 left-1/2 -translate-x-1/2
+      w-[92%] max-w-7xl
+      bg-white/80 backdrop-blur-xl
+      rounded-full px-5 md:px-8 py-3 md:py-4
+      shadow-xl z-50
+      opacity-0 -translate-y-8 pointer-events-none">
+
+    <div class="flex items-center justify-between">
+      <img
+            src="assets/images/PURVA LOGO-02.png"
+            alt="Purva"
+            class="h-10 sm:h-14 md:h-16 w-auto"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+
+      <ul class="hidden md:flex items-center gap-8 lg:gap-10 font-medium text-gray-700">
+        <li><a href="#" class="hover:text-black transition">Home</a></li>
+        <li><a href="#" class="hover:text-black transition">Products</a></li>
+        <li><a href="#" class="hover:text-black transition">About</a></li>
+        <li><a href="#" class="hover:text-black transition">Contact</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <button class="bg-black text-white px-5 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium">
+          Sign Up
+        </button>
+        <button onclick="openDrawer()"
+          class="ham-btn md:hidden w-9 h-9 flex flex-col justify-center items-center gap-[5px] rounded-full hover:bg-gray-100 transition"
+          aria-label="Open menu">
+          <span class="ham-bar"></span>
+          <span class="ham-bar"></span>
+          <span class="ham-bar"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- FLOATING SHAPES -->
+  <div class="hidden sm:block fixed top-10 left-5 w-20 h-20 md:w-28 md:h-28 rounded-full bg-white/70 blur-sm float"></div>
+  <div class="hidden sm:block fixed top-20 right-12 w-14 h-14 md:w-20 md:h-20 rounded-full bg-white/70 blur-sm float" style="animation-delay:1s"></div>
+  <div class="hidden sm:block fixed bottom-20 right-5 w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/70 blur-sm float" style="animation-delay:2s"></div>
+
+  <!-- ===================== HERO SECTION ===================== -->
+  <section id="hero" class="min-h-screen px-3 py-3 sm:px-5 sm:py-5">
+
+    <div class="max-w-7xl min-h-[calc(100vh-24px)] mx-auto bg-white rounded-[32px] md:rounded-[48px] px-5 py-5 sm:px-8 lg:px-12 lg:py-6 shadow-[0_30px_80px_rgba(0,0,0,0.08)] flex flex-col">
+
+      <!-- HERO NAVBAR -->
+      <nav class="flex items-center justify-between flex-shrink-0">
+
+        <div class="flex items-center gap-2">
+          <img
+            src="assets/images/PURVA LOGO-02.png"
+            alt="Purva"
+            class="h-10 sm:h-14 md:h-16 w-auto"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+          <span class="hidden text-xl font-extrabold text-gray-900">PURVA</span>
+        </div>
+
+        <ul class="hidden md:flex items-center gap-8 lg:gap-10 font-medium text-gray-700">
+          <li><a href="#" class="hover:text-black transition">Home</a></li>
+          <li><a href="#" class="hover:text-black transition">Products</a></li>
+          <li><a href="#" class="hover:text-black transition">About</a></li>
+          <li><a href="#" class="hover:text-black transition">Contact</a></li>
+        </ul>
+
+        <div class="flex items-center gap-2">
+          <button class="bg-black text-white px-5 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium hover:scale-105 transition">
+            Sign Up
+          </button>
+          <!-- Hamburger in hero nav -->
+          <button onclick="openDrawer()"
+            class="ham-btn md:hidden w-9 h-9 flex flex-col justify-center items-center gap-[5px] rounded-full hover:bg-gray-100 transition"
+            aria-label="Open menu">
+            <span class="ham-bar"></span>
+            <span class="ham-bar"></span>
+            <span class="ham-bar"></span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- HERO CONTENT -->
+      <div class="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center flex-1 py-8 sm:py-10 lg:py-0">
+
+        <!-- LEFT CONTENT -->
+        <div class="text-center lg:text-left">
+
+          <div class="flex gap-2 mb-5 justify-center lg:justify-start">
+            <span class="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-green-200"></span>
+            <span class="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-green-300"></span>
+            <span class="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-green-400"></span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[0.9] text-gray-900">
+            It's all<br>organic<br>here
+          </h1>
+
+          <p class="text-gray-500 text-base sm:text-lg mt-5 sm:mt-6 max-w-md leading-relaxed mx-auto lg:mx-0">
+            Discover natural wellness solutions designed to improve your lifestyle, health and daily balance.
+          </p>
+
+          <div class="flex flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8 justify-center lg:justify-start">
+            <button class="bg-black text-white px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-medium hover:scale-105 transition text-sm sm:text-base">
+              Explore
+            </button>
+            <button class="bg-green-100 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-medium hover:bg-green-200 transition text-sm sm:text-base">
+              Learn More
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT IMAGE -->
+        <div class="flex justify-center lg:justify-end order-first lg:order-last">
+          <div class="relative w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[420px]">
+            <div class="absolute inset-0 bg-green-100 rounded-[32px] md:rounded-[40px] scale-110 blur-2xl opacity-70"></div>
+            <img
+              src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1000"
+              alt="Wellness"
+              class="relative z-10 w-full rounded-[32px] md:rounded-[40px] shadow-2xl object-cover aspect-[4/5] sm:aspect-auto">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECOND SECTION -->
+  <section class="min-h-screen flex items-center justify-center px-5">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block px-4 py-2 rounded-full bg-white shadow mb-6 text-sm font-medium">
+        Scroll Test
+      </span>
+      <h2 class="text-4xl sm:text-5xl md:text-7xl font-extrabold text-gray-900">
+        Second Section
+      </h2>
+      <p class="text-lg sm:text-xl text-gray-600 mt-6 max-w-xl mx-auto leading-relaxed">
+        Scroll down and watch the navbar smoothly appear from the top.
+      </p>
+    </div>
+  </section>
+
+<script>
+  // ---- Floating nav scroll reveal ----
+  const hero = document.getElementById('hero');
+  const floatingNav = document.getElementById('floatingNav');
+
+  window.addEventListener('scroll', () => {
+    const trigger = hero.offsetHeight - 120;
+    if (window.scrollY > trigger) {
+      floatingNav.classList.remove('opacity-0', '-translate-y-8', 'pointer-events-none');
+      floatingNav.classList.add('opacity-100', 'translate-y-0');
+    } else {
+      floatingNav.classList.add('opacity-0', '-translate-y-8', 'pointer-events-none');
+      floatingNav.classList.remove('opacity-100', 'translate-y-0');
+    }
+  });
+
+  // ---- Drawer open / close ----
+  const drawer = document.getElementById('mobileDrawer');
+  const backdrop = document.getElementById('drawerBackdrop');
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  backdrop.addEventListener('click', closeDrawer);
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDrawer();
+  });
+</script>
+
+</body>
+</html>
