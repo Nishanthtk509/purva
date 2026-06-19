@@ -116,10 +116,101 @@
 
     .slide { opacity: 0; transition: opacity 1s ease-in-out; }
     .slide.active { opacity: 1; }
+
+
+/* PRELOADER */
+
+#preloader{
+    position:fixed;
+    inset:0;
+    background:#4B7102;
+    z-index:99999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:
+        opacity .8s ease,
+        visibility .8s ease;
+}
+
+#preloader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+#logo{
+    width:320px;
+    opacity:0;
+
+    animation:logoReveal 2s ease forwards;
+}
+
+@media(max-width:768px){
+
+    #logo{
+        width:220px;
+    }
+
+}
+
+@keyframes logoReveal{
+
+    0%{
+        opacity:0;
+        transform:translateY(40px) scale(.85);
+    }
+
+    50%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+    75%{
+        transform:scale(1.05);
+    }
+
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+
+
   </style>
 </head>
 
 <body class="overflow-x-hidden bg-[#A8A464]">
+
+
+<!-- PRELOADER -->
+<div id="preloader" class="bg-[#4B7102]">
+    <img
+        id="logo"
+        src="assets/images/PURVA LOGO-01.png"
+        alt="PURVA">
+</div>
+
+
+<script>
+
+window.addEventListener("load", () => {
+
+    const preloader = document.getElementById("preloader");
+
+    setTimeout(() => {
+
+        preloader.classList.add("hide");
+
+    }, 2500);
+
+});
+
+</script>
+
 
   <!-- ===================== MOBILE DRAWER ===================== -->
   <div id="drawerBackdrop" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] md:hidden"></div>
