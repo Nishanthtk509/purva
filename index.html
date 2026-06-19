@@ -13,34 +13,22 @@
     }
 
     @keyframes float {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-20px);
-      }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
     }
 
-    .float {
-      animation: float 6s ease-in-out infinite;
-    }
+    .float { animation: float 6s ease-in-out infinite; }
 
     #floatingNav {
       transition: opacity 0.7s ease-out, transform 0.7s ease-out;
     }
 
-    /* Full-screen drawer slides in from the right */
+    /* Drawer slides in from right */
     #mobileDrawer {
       transform: translateX(100%);
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
-    #mobileDrawer.open {
-      transform: translateX(0);
-    }
+    #mobileDrawer.open { transform: translateX(0); }
 
     /* Backdrop */
     #drawerBackdrop {
@@ -48,7 +36,6 @@
       pointer-events: none;
       transition: opacity 0.4s ease;
     }
-
     #drawerBackdrop.open {
       opacity: 1;
       pointer-events: auto;
@@ -60,37 +47,16 @@
       transform: translateX(40px);
       transition: opacity 0.35s ease, transform 0.35s ease;
     }
-
-    #mobileDrawer.open li:nth-child(1) {
-      opacity: 1;
-      transform: translateX(0);
-      transition-delay: 0.18s;
-    }
-
-    #mobileDrawer.open li:nth-child(2) {
-      opacity: 1;
-      transform: translateX(0);
-      transition-delay: 0.26s;
-    }
-
-    #mobileDrawer.open li:nth-child(3) {
-      opacity: 1;
-      transform: translateX(0);
-      transition-delay: 0.34s;
-    }
-
-    #mobileDrawer.open li:nth-child(4) {
-      opacity: 1;
-      transform: translateX(0);
-      transition-delay: 0.42s;
-    }
+    #mobileDrawer.open li:nth-child(1) { opacity:1; transform:translateX(0); transition-delay:0.18s; }
+    #mobileDrawer.open li:nth-child(2) { opacity:1; transform:translateX(0); transition-delay:0.26s; }
+    #mobileDrawer.open li:nth-child(3) { opacity:1; transform:translateX(0); transition-delay:0.34s; }
+    #mobileDrawer.open li:nth-child(4) { opacity:1; transform:translateX(0); transition-delay:0.42s; }
 
     .drawer-cta {
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.35s ease, transform 0.35s ease;
     }
-
     #mobileDrawer.open .drawer-cta {
       opacity: 1;
       transform: translateY(0);
@@ -107,49 +73,62 @@
       transition: transform 0.3s ease, opacity 0.2s ease;
       transform-origin: center;
     }
+    .is-open .ham-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .is-open .ham-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .is-open .ham-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-    .is-open .ham-bar:nth-child(1) {
-      transform: translateY(6px) rotate(45deg);
-    }
-
-    .is-open .ham-bar:nth-child(2) {
+    /* Reveal animations */
+    .reveal-left, .reveal-right {
       opacity: 0;
-      transform: scaleX(0);
+      transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .reveal-left.visible, .reveal-right.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .is-open .ham-bar:nth-child(3) {
-      transform: translateY(-6px) rotate(-45deg);
+    /* Hero content padding responsive fix */
+    .hero-content-pad {
+      padding-left: clamp(16px, 5vw, 112px);
+      padding-right: clamp(16px, 5vw, 112px);
     }
 
-    
+    /* Hero nav padding responsive fix */
+    .hero-nav-pad {
+      padding-left: clamp(16px, 4vw, 48px);
+      padding-right: clamp(16px, 4vw, 48px);
+    }
 
-    .slide{
-    opacity:0;
-    transition:opacity 1s ease-in-out;
-}
+    /* Responsive image overlay cards */
+    .overlay-card {
+      right: clamp(-8px, -2vw, -40px);
+    }
+    .overlay-bottom-img {
+      left: clamp(-8px, -2vw, -40px);
+      width: clamp(140px, 28vw, 288px);
+    }
 
-.slide.active{
-    opacity:1;
-}
+    /* Stat divider */
+    .stat-divider {
+      padding-left: clamp(16px, 3vw, 32px);
+    }
 
+    .slide { opacity: 0; transition: opacity 1s ease-in-out; }
+    .slide.active { opacity: 1; }
   </style>
 </head>
 
-<body class="bg-gradient-to-br from-[#616DCC] via-[#A5AEF2] to-white overflow-x-hidden">
+<body class="overflow-x-hidden bg-[#A8A464]">
 
-  <!-- ===================== FULL-SCREEN MOBILE DRAWER ===================== -->
+  <!-- ===================== MOBILE DRAWER ===================== -->
+  <div id="drawerBackdrop" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] md:hidden"></div>
 
-  <!-- Backdrop -->
-  <div id="drawerBackdrop" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] md:hidden">
-  </div>
-
-  <!-- Drawer panel -->
-  <div id="mobileDrawer" class="fixed inset-y-0 right-0 w-full bg-[#DFF2E3] z-[70] md:hidden flex flex-col px-8 py-8">
+  <div id="mobileDrawer" class="fixed inset-y-0 right-0 w-full max-w-sm bg-[#DFF2E3] z-[70] md:hidden flex flex-col px-6 py-8">
 
     <!-- Drawer header -->
-    <div class="flex items-center justify-between mb-12">
-      <img src="assets/images/PURVA LOGO-02.png" alt="Purva" class="h-10 sm:h-14 md:h-16 w-auto"
-        onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+    <div class="flex items-center justify-between mb-10">
+      <span class="text-2xl font-extrabold text-[#2d4a1e] tracking-tight">PURVA</span>
       <button id="drawerClose"
         class="is-open w-10 h-10 flex flex-col justify-center items-center gap-[5px] rounded-full bg-white shadow"
         aria-label="Close menu">
@@ -160,38 +139,34 @@
     </div>
 
     <!-- Nav links -->
-    <ul class="flex flex-col gap-2 flex-1">
+    <ul class="flex flex-col gap-0 flex-1">
       <li>
         <a href="#" onclick="closeDrawer()"
-          class="flex items-center justify-between text-2xl font-extrabold text-gray-900 py-4 border-b border-black/10 hover:pl-2 transition-all">
-          Home
-          <span class="text-2xl text-gray-400">→</span>
+          class="flex items-center justify-between text-2xl font-extrabold text-gray-900 py-5 border-b border-black/10 hover:pl-2 transition-all">
+          Home <span class="text-xl text-gray-400">→</span>
         </a>
       </li>
       <li>
         <a href="#" onclick="closeDrawer()"
-          class="flex items-center justify-between text-4xl font-extrabold text-gray-900 py-4 border-b border-black/10 hover:pl-2 transition-all">
-          Products
-          <span class="text-2xl text-gray-400">→</span>
+          class="flex items-center justify-between text-2xl font-extrabold text-gray-900 py-5 border-b border-black/10 hover:pl-2 transition-all">
+          Products <span class="text-xl text-gray-400">→</span>
         </a>
       </li>
       <li>
         <a href="#" onclick="closeDrawer()"
-          class="flex items-center justify-between text-4xl font-extrabold text-gray-900 py-4 border-b border-black/10 hover:pl-2 transition-all">
-          About
-          <span class="text-2xl text-gray-400">→</span>
+          class="flex items-center justify-between text-2xl font-extrabold text-gray-900 py-5 border-b border-black/10 hover:pl-2 transition-all">
+          About <span class="text-xl text-gray-400">→</span>
         </a>
       </li>
       <li>
         <a href="#" onclick="closeDrawer()"
-          class="flex items-center justify-between text-4xl font-extrabold text-gray-900 py-4 border-b border-black/10 hover:pl-2 transition-all">
-          Contact
-          <span class="text-2xl text-gray-400">→</span>
+          class="flex items-center justify-between text-2xl font-extrabold text-gray-900 py-5 border-b border-black/10 hover:pl-2 transition-all">
+          Contact <span class="text-xl text-gray-400">→</span>
         </a>
       </li>
     </ul>
 
-    <!-- CTA at bottom -->
+    <!-- CTA -->
     <div class="drawer-cta mt-auto pt-8">
       <button class="w-full bg-black text-white py-4 rounded-full text-lg font-semibold hover:scale-[1.02] transition">
         Sign Up
@@ -201,17 +176,16 @@
   </div>
 
   <!-- ===================== FLOATING NAVBAR ===================== -->
-  <nav id="floatingNav" class="fixed top-5 left-1/2 -translate-x-1/2
-      w-[92%] max-w-7xl
-      bg-white/80 backdrop-blur-xl
-      rounded-full px-5 md:px-8 py-3 md:py-4
-      shadow-xl z-50
-      opacity-0 -translate-y-8 pointer-events-none">
+  <nav id="floatingNav"
+    class="fixed top-5 left-1/2 -translate-x-1/2 rounded-2xl w-[92%] max-w-7xl  backdrop-blur-xl px-5 h-16 flex items-center shadow-xl z-50 opacity-0 -translate-y-8 pointer-events-none">
 
-    <div class="flex items-center justify-between">
-      <img src="assets/images/PURVA LOGO-02.png" alt="Purva" class="h-10 sm:h-14 md:h-16 w-auto"
+    <div class="flex items-center justify-between w-full">
+      <!-- Logo -->
+      <img src="assets/images/PURVA LOGO-01.png" alt="Purva" class="h-10 w-auto"
         onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="hidden text-xl font-extrabold text-[#2d4a1e]" style="display:none">PURVA</span>
 
+      <!-- Desktop links -->
       <ul class="hidden md:flex items-center gap-8 lg:gap-10 font-medium text-gray-700">
         <li><a href="#" class="hover:text-black transition">Home</a></li>
         <li><a href="#" class="hover:text-black transition">Products</a></li>
@@ -220,8 +194,7 @@
       </ul>
 
       <div class="flex items-center gap-3">
-        <button
-          class="hidden md:inline-flex bg-black text-white px-5 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium">
+        <button class="hidden md:inline-flex bg-black text-white px-5 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium hover:scale-105 transition">
           Sign Up
         </button>
         <button onclick="openDrawer()"
@@ -235,257 +208,171 @@
     </div>
   </nav>
 
-  <!-- FLOATING SHAPES -->
-  <div class="hidden sm:block fixed top-10 left-5 w-20 h-20 md:w-28 md:h-28 rounded-full bg-white/70 blur-sm float">
-  </div>
-  <div class="hidden sm:block fixed top-20 right-12 w-14 h-14 md:w-20 md:h-20 rounded-full bg-white/70 blur-sm float"
-    style="animation-delay:1s"></div>
-  <div class="hidden sm:block fixed bottom-20 right-5 w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/70 blur-sm float"
-    style="animation-delay:2s"></div>
+  <!-- FLOATING SHAPES (decorative, hidden on small screens) -->
+  <div class="hidden sm:block fixed top-10 left-5 w-20 h-20 md:w-28 md:h-28 rounded-full bg-white/70 blur-sm float pointer-events-none"></div>
+  <div class="hidden sm:block fixed top-20 right-12 w-14 h-14 md:w-20 md:h-20 rounded-full bg-white/70 blur-sm float pointer-events-none" style="animation-delay:1s"></div>
+  <div class="hidden sm:block fixed bottom-20 right-5 w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/70 blur-sm float pointer-events-none" style="animation-delay:2s"></div>
 
   <!-- ===================== HERO SECTION ===================== -->
-  <section id="hero" class="h-screen px-3 py-3 sm:px-5 sm:py-5">
+  <section id="hero" class="relative min-h-screen overflow-hidden">
 
-    <div
-  class="max-w-7xl h-full mx-auto bg-white rounded-[32px] md:rounded-[48px] px-5 py-4 sm:px-8 lg:px-12 lg:py-5 shadow-[0_30px_80px_rgba(0,0,0,0.08)] flex flex-col overflow-hidden">
-      
-  <!-- HERO NAVBAR -->
-      <nav class="flex items-center justify-between flex-shrink-0">
+    <!-- Background Image -->
+    <img src="https://i.pinimg.com/1200x/63/33/b3/6333b3eee5e9294fc843585537a6ab23.jpg"
+      alt="" class="absolute inset-0 w-full h-full object-cover">
+
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/20"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 min-h-screen flex flex-col">
+
+      <!-- HERO NAVBAR -->
+      <nav class="hero-nav-pad flex items-center justify-between flex-shrink-0 py-5">
 
         <div class="flex items-center gap-2">
-          <img src="assets/images/PURVA LOGO-02.png" alt="Purva" class="h-10 sm:h-14 md:h-16 w-auto"
+          <img src="assets/images/PURVA LOGO-01.png" alt="Purva" class="h-10 sm:h-12 w-auto"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-          <span class="hidden text-xl font-extrabold text-gray-900">PURVA</span>
+          <span class="text-xl font-extrabold text-white" style="display:none">PURVA</span>
         </div>
 
-        <ul class="hidden md:flex items-center gap-8 lg:gap-10 font-medium text-gray-700">
-          <li><a href="#" class="hover:text-black transition">Home</a></li>
-          <li><a href="#" class="hover:text-black transition">Products</a></li>
-          <li><a href="#" class="hover:text-black transition">About</a></li>
-          <li><a href="#" class="hover:text-black transition">Contact</a></li>
+        <ul class="hidden md:flex items-center gap-8 lg:gap-10 font-medium text-white">
+          <li><a href="#" class="hover:text-green-200 transition">Home</a></li>
+          <li><a href="#" class="hover:text-green-200 transition">Products</a></li>
+          <li><a href="#" class="hover:text-green-200 transition">About</a></li>
+          <li><a href="#" class="hover:text-green-200 transition">Contact</a></li>
         </ul>
 
         <div class="flex items-center gap-2">
-          <button
-            class="hidden md:inline-flex bg-black text-white px-5 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium hover:scale-105 transition">
+          <button class="hidden md:inline-flex bg-white text-black px-5 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium hover:scale-105 transition">
             Sign Up
           </button>
-          <!-- Hamburger in hero nav -->
           <button onclick="openDrawer()"
-            class="ham-btn md:hidden w-9 h-9 flex flex-col justify-center items-center gap-[5px] rounded-full hover:bg-gray-100 transition"
+            class="ham-btn md:hidden w-9 h-9 flex flex-col justify-center items-center gap-[5px] rounded-full hover:bg-white/10 transition"
             aria-label="Open menu">
-            <span class="ham-bar"></span>
-            <span class="ham-bar"></span>
-            <span class="ham-bar"></span>
+            <span class="ham-bar bg-white"></span>
+            <span class="ham-bar bg-white"></span>
+            <span class="ham-bar bg-white"></span>
           </button>
         </div>
       </nav>
 
       <!-- HERO CONTENT -->
-      <div class="grid lg:grid-cols-2 gap-6 lg:gap-10 items-center flex-1 py-4">
+      <div class="hero-content-pad flex-1 flex items-center py-16 sm:py-20">
+        <div class=" md:text-left sm:text-left max-w-xl">
 
-        <!-- LEFT CONTENT -->
-        <div class="text-center lg:text-left">
-
-          <div class="flex gap-2 mb-5 justify-center lg:justify-start">
-            <span class="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-green-200"></span>
-            <span class="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-green-300"></span>
-            <span class="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-green-400"></span>
-          </div>
-
-          <h1 class="text-4xl sm:text-5xl lg:text-[58px] font-extrabold leading-[0.9] text-gray-900">
-            It's all<br>organic<br>here
+          <h1 class="text-4xl sm:text-5xl lg:text-[62px] font-extrabold leading-[0.92] text-white">
+            It's all organic<br>here
           </h1>
 
-          <p class="text-gray-500 text-base sm:text-lg mt-5 sm:mt-6 max-w-md leading-relaxed mx-auto lg:mx-0">
+          <p class="text-white/80 text-base sm:text-lg mt-5 sm:mt-6 max-w-md leading-relaxed mx-auto md:mx-0">
             Discover natural wellness solutions designed to improve your lifestyle, health and daily balance.
           </p>
 
-          <div class="flex flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8 justify-center lg:justify-start">
-            <button
-              class="bg-black text-white px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-medium hover:scale-105 transition text-sm sm:text-base">
+          <div class="flex flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8 justify-center md:justify-start">
+            <button class="bg-white text-black px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-medium hover:scale-105 transition text-sm sm:text-base">
               Explore
             </button>
-            <button
-              class="bg-green-100 px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-medium hover:bg-green-200 transition text-sm sm:text-base">
+            <button class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-medium hover:bg-white/20 transition text-sm sm:text-base">
               Learn More
             </button>
           </div>
-        </div>
-
-        <!-- RIGHT IMAGE -->
-<div class="flex justify-center lg:justify-end order-first lg:order-last">
-
-    <div class="relative w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[420px]">
-
-        <!-- Glow -->
-        <div
-            class="absolute inset-0 bg-green-100 rounded-[32px] md:rounded-[40px] scale-110 blur-2xl opacity-70">
-        </div>
-
-        <!-- Slider -->
-        <div
-            class="relative h-[230px] sm:h-[280px] lg:h-[340px] overflow-hidden rounded-[32px] md:rounded-[40px]">
-
-            <img
-                src="./assets/images/land1.jpg"
-                class="slide active absolute inset-0 w-full h-full object-cover"
-                alt="Wellness">
-
-            <img
-                src="./assets/images/land2.jpg"
-                class="slide absolute inset-0 w-full h-full object-cover"
-                alt="Wellness">
-
-            <img
-                src="./assets/images/land3.jpg"
-                class="slide absolute inset-0 w-full h-full object-cover"
-                alt="Wellness">
 
         </div>
-
-    </div>
-
-</div>
-
       </div>
+
     </div>
   </section>
 
-  <!-- SECOND SECTION -->
-<section class="relative py-20 px-5 bg-[#F4F3EE] overflow-hidden">
+  <!-- ===================== SECOND SECTION ===================== -->
+  <section class="relative py-16 sm:py-20 px-4 sm:px-6 bg-[#F4F3EE] overflow-hidden">
 
-    <!-- Smooth divider fade -->
-    <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#A5AEF2] to-[#F4F3EE] pointer-events-none"></div>
+    <!-- Top gradient transition -->
+    <div class="absolute top-0 left-0 w-full h-40 overflow-hidden pointer-events-none">
+      <div class="absolute inset-0 bg-gradient-to-b from-[#736B1F] via-[#A39A65]/40 to-transparent"></div>
+    </div>
 
     <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- LEFT CONTENT -->
+        <div class="reveal-left order-2 lg:order-1">
 
-            <!-- LEFT CONTENT -->
-            <div class="reveal-left opacity-0 translate-y-10 transition-all duration-1000">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-black">
+            Bringing our relaxation and care together
+          </h2>
 
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-black">
-                    Bringing our relaxation
-                    and care together
-                </h2>
+          <p class="mt-6 sm:mt-8 text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl">
+            We are passionate about helping people achieve a healthier and more balanced lifestyle through professional spa treatments and holistic therapies.
+          </p>
 
-                <p class="mt-8 text-lg text-gray-600 leading-relaxed max-w-xl">
-                    We are passionate about helping people achieve a healthier
-                    and more balanced lifestyle through professional spa
-                    treatments and holistic therapies.
-                </p>
-
-                <!-- FEATURES -->
-                <div class="grid sm:grid-cols-2 gap-8 mt-12">
-
-                    <div class="flex gap-4">
-                        <span class="text-3xl text-[#6F7555]">*</span>
-                        <p class="text-gray-700 text-lg">
-                            Spa treatments designed to relax your body and mind.
-                        </p>
-                    </div>
-
-                    <div class="flex gap-4">
-                        <span class="text-3xl text-[#6F7555]">*</span>
-                        <p class="text-gray-700 text-lg">
-                            A peaceful environment combined with expert care.
-                        </p>
-                    </div>
-
-                </div>
-
-                <!-- STATS -->
-                <div class="mt-12 bg-[#ECECE4] rounded-[32px] p-8 md:p-10">
-
-                    <div class="grid grid-cols-2 gap-8">
-
-                        <div>
-                            <h3 class="text-5xl font-bold text-black">100+</h3>
-                            <p class="mt-3 text-gray-600">
-                                Luxury Spa Treatments & Wellness Services
-                            </p>
-                        </div>
-
-                        <div class="border-l border-gray-300 pl-8">
-                            <h3 class="text-5xl font-bold text-black">40+</h3>
-                            <p class="mt-3 text-gray-600">
-                                Certified Therapists & Wellness Experts
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- BUTTON -->
-                
-
+          <!-- Features -->
+          <div class="grid sm:grid-cols-2 gap-6 sm:gap-8 mt-8 sm:mt-12">
+            <div class="flex gap-4">
+              <span class="text-2xl text-[#6F7555] flex-shrink-0 mt-0.5">✦</span>
+              <p class="text-gray-700 text-base sm:text-lg">Spa treatments designed to relax your body and mind.</p>
             </div>
-
-            <!-- RIGHT IMAGE -->
-            <div class="reveal-right opacity-0 translate-y-10 transition-all duration-1000 flex justify-center">
-
-                <div class="relative w-full max-w-[560px]">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=1000"
-                        class="w-full rounded-t-[280px] rounded-b-[30px] object-cover h-[650px]"
-                        alt="Spa">
-
-                    <div class="absolute top-16 right-[-20px] md:right-[-40px] bg-[#6F7555] rounded-2xl p-2 shadow-xl">
-
-                        <img
-                            src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800"
-                            class="w-52 h-52 object-cover rounded-xl"
-                            alt="Massage">
-
-                        <p class="text-center text-white font-semibold mt-3 text-lg">
-                            Call At: +123 456-789
-                        </p>
-
-                    </div>
-
-                    <img
-                        src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=800"
-                        class="absolute -bottom-8 left-[-10px] md:left-[-40px] w-60 md:w-72 rounded-[40px] border-4 border-white shadow-xl"
-                        alt="Relax">
-
-                </div>
-
+            <div class="flex gap-4">
+              <span class="text-2xl text-[#6F7555] flex-shrink-0 mt-0.5">✦</span>
+              <p class="text-gray-700 text-base sm:text-lg">A peaceful environment combined with expert care.</p>
             </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="mt-8 sm:mt-12 bg-[#ECECE4] rounded-[28px] sm:rounded-[32px] p-6 sm:p-8 md:p-10">
+            <div class="grid grid-cols-2 gap-4 sm:gap-8">
+              <div>
+                <h3 class="text-4xl sm:text-5xl font-bold text-black">100+</h3>
+                <p class="mt-2 sm:mt-3 text-gray-600 text-sm sm:text-base">Luxury Spa Treatments & Wellness Services</p>
+              </div>
+              <div class="border-l border-gray-300 stat-divider">
+                <h3 class="text-4xl sm:text-5xl font-bold text-black">40+</h3>
+                <p class="mt-2 sm:mt-3 text-gray-600 text-sm sm:text-base">Certified Therapists & Wellness Experts</p>
+              </div>
+            </div>
+          </div>
 
         </div>
 
+        <!-- RIGHT IMAGE -->
+        <div class="reveal-right order-1 lg:order-2 flex justify-center">
+
+          <div class="relative w-full max-w-[480px] lg:max-w-[560px] mx-auto mt-8 sm:mt-0 mb-16 sm:mb-8 lg:mb-0">
+
+            <!-- Main image -->
+            <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=1000"
+              class="w-full rounded-t-[50%] rounded-b-[24px] object-cover"
+              style="height: clamp(300px, 45vw, 620px)"
+              alt="Spa">
+
+            <!-- Floating card top-right -->
+            <div class="absolute overlay-card bg-[#6F7555] rounded-2xl p-2 shadow-xl"
+              style="top: clamp(24px, 5%, 64px)">
+              <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800"
+                class="object-cover rounded-xl"
+                style="width: clamp(100px, 18vw, 200px); height: clamp(100px, 18vw, 200px)"
+                alt="Massage">
+              <p class="text-center text-white font-semibold mt-2 text-xs sm:text-sm lg:text-base">
+                Call At: +123 456-789
+              </p>
+            </div>
+
+            <!-- Floating bottom-left image -->
+            <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=800"
+              class="overlay-bottom-img absolute -bottom-10 rounded-[32px] sm:rounded-[40px] border-4 border-white shadow-xl"
+              alt="Relax">
+
+          </div>
+
+        </div>
+
+      </div>
     </div>
 
-</section>
+  </section>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-    const elements = document.querySelectorAll(".reveal-left, .reveal-right");
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("opacity-100", "translate-y-0");
-                entry.target.classList.remove("opacity-0", "translate-y-10");
-            }
-        });
-    }, {
-        threshold: 0.2
-    });
-
-    elements.forEach(el => observer.observe(el));
-});
-</script>
-
-
-
-
+  <!-- ===================== SCRIPTS ===================== -->
   <script>
-    // ---- Floating nav scroll reveal ----
+    // Floating nav scroll reveal
     const hero = document.getElementById('hero');
     const floatingNav = document.getElementById('floatingNav');
 
@@ -498,9 +385,9 @@ document.addEventListener("DOMContentLoaded", () => {
         floatingNav.classList.add('opacity-0', '-translate-y-8', 'pointer-events-none');
         floatingNav.classList.remove('opacity-100', 'translate-y-0');
       }
-    });
+    }, { passive: true });
 
-    // ---- Drawer open / close ----
+    // Drawer
     const drawer = document.getElementById('mobileDrawer');
     const backdrop = document.getElementById('drawerBackdrop');
 
@@ -518,41 +405,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById('drawerClose').addEventListener('click', closeDrawer);
     backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
-    // Close on Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeDrawer();
+    // Scroll reveal
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => observer.observe(el));
     });
-  </script>
 
-  <script>
-
-    const slides = document.querySelectorAll(".slide");
-    let currentSlide = 0;
-
-    function showSlide(index) {
-
-      slides.forEach(slide => {
-        slide.classList.remove("active");
+    // Logo fallback — show text if image 404s
+    document.querySelectorAll('img[alt="Purva"]').forEach(img => {
+      img.addEventListener('error', function () {
+        this.style.display = 'none';
+        const sib = this.nextElementSibling;
+        if (sib) sib.style.display = 'block';
       });
+    });
 
-      slides[index].classList.add("active");
+    // Slide (for future use)
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    if (slides.length) {
+      setInterval(() => {
+        slides.forEach(s => s.classList.remove('active'));
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 3000);
     }
-
-    setInterval(() => {
-
-      currentSlide++;
-
-      if (currentSlide >= slides.length) {
-        currentSlide = 0;
-      }
-
-      showSlide(currentSlide);
-
-    }, 3000);
-
   </script>
 
 </body>
-
 </html>
