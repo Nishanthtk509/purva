@@ -7,215 +7,28 @@
   <title>Purva Wellness</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Manrope', sans-serif;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-
-    .float { animation: float 6s ease-in-out infinite; }
-
-    #floatingNav {
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-    }
-
-    /* Drawer slides in from right */
-    #mobileDrawer {
-      transform: translateX(100%);
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    #mobileDrawer.open { transform: translateX(0); }
-
-    /* Backdrop */
-    #drawerBackdrop {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-    }
-    #drawerBackdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* Staggered nav link entrance */
-    #mobileDrawer li {
-      opacity: 0;
-      transform: translateX(40px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-    #mobileDrawer.open li:nth-child(1) { opacity:1; transform:translateX(0); transition-delay:0.18s; }
-    #mobileDrawer.open li:nth-child(2) { opacity:1; transform:translateX(0); transition-delay:0.26s; }
-    #mobileDrawer.open li:nth-child(3) { opacity:1; transform:translateX(0); transition-delay:0.34s; }
-    #mobileDrawer.open li:nth-child(4) { opacity:1; transform:translateX(0); transition-delay:0.42s; }
-
-    .drawer-cta {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-    #mobileDrawer.open .drawer-cta {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.50s;
-    }
-
-    /* Hamburger → X morph */
-    .ham-bar {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: currentColor;
-      border-radius: 2px;
-      transition: transform 0.3s ease, opacity 0.2s ease;
-      transform-origin: center;
-    }
-    .is-open .ham-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .is-open .ham-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .is-open .ham-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-    /* Reveal animations */
-    .reveal-left, .reveal-right {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.9s ease, transform 0.9s ease;
-    }
-    .reveal-left.visible, .reveal-right.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Hero content padding responsive fix */
-    .hero-content-pad {
-      padding-left: clamp(16px, 5vw, 112px);
-      padding-right: clamp(16px, 5vw, 112px);
-    }
-
-    /* Hero nav padding responsive fix */
-    .hero-nav-pad {
-      padding-left: clamp(16px, 4vw, 48px);
-      padding-right: clamp(16px, 4vw, 48px);
-    }
-
-    /* Responsive image overlay cards */
-    .overlay-card {
-      right: clamp(-8px, -2vw, -40px);
-    }
-    .overlay-bottom-img {
-      left: clamp(-8px, -2vw, -40px);
-      width: clamp(140px, 28vw, 288px);
-    }
-
-    /* Stat divider */
-    .stat-divider {
-      padding-left: clamp(16px, 3vw, 32px);
-    }
-
-    .slide { opacity: 0; transition: opacity 1s ease-in-out; }
-    .slide.active { opacity: 1; }
+  <link rel="stylesheet" href="assets/css/style.css">
 
 
-/* PRELOADER */
-
-#preloader{
-    position:fixed;
-    inset:0;
-    background:#4B7102;
-    z-index:99999;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    transition:
-        opacity .8s ease,
-        visibility .8s ease;
-}
-
-#preloader.hide{
-    opacity:0;
-    visibility:hidden;
-}
-
-#logo{
-    width:320px;
-    opacity:0;
-
-    animation:logoReveal 2s ease forwards;
-}
-
-@media(max-width:768px){
-
-    #logo{
-        width:220px;
-    }
-
-}
-
-@keyframes logoReveal{
-
-    0%{
-        opacity:0;
-        transform:translateY(40px) scale(.85);
-    }
-
-    50%{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
-
-    75%{
-        transform:scale(1.05);
-    }
-
-    100%{
-        opacity:1;
-        transform:scale(1);
-    }
-
-}
-
-
-
-  </style>
 </head>
 
-<body class="overflow-x-hidden bg-[#A8A464]">
+<body class="overflow-x-hidden bg-[#D7F0D3]">
 
 
-<!-- PRELOADER -->
-<div id="preloader" class="bg-[#4B7102]">
-    <img
-        id="logo"
-        src="assets/images/PURVA LOGO-01.png"
-        alt="PURVA">
-</div>
+  <!-- PRELOADER -->
+  <div id="preloader" class="bg-[#4B7102]">
+    <img id="logo" src="assets/images/PURVA LOGO-01.png" alt="PURVA">
+  </div>
 
 
-<script>
 
-window.addEventListener("load", () => {
-
-    const preloader = document.getElementById("preloader");
-
-    setTimeout(() => {
-
-        preloader.classList.add("hide");
-
-    }, 2500);
-
-});
-
-</script>
 
 
   <!-- ===================== MOBILE DRAWER ===================== -->
   <div id="drawerBackdrop" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] md:hidden"></div>
 
-  <div id="mobileDrawer" class="fixed inset-y-0 right-0 w-full max-w-sm bg-[#DFF2E3] z-[70] md:hidden flex flex-col px-6 py-8">
+  <div id="mobileDrawer"
+    class="fixed inset-y-0 right-0 w-full max-w-sm bg-[#DFF2E3] z-[70] md:hidden flex flex-col px-6 py-8">
 
     <!-- Drawer header -->
     <div class="flex items-center justify-between mb-10">
@@ -266,7 +79,7 @@ window.addEventListener("load", () => {
     </div>
   </div>
 
-  <!-- ===================== FLOATING NAVBAR ===================== -->
+  <!-- FLOATING NAVBAR  -->
   <nav id="floatingNav"
     class="fixed top-5 left-1/2 -translate-x-1/2 rounded-2xl w-[92%] max-w-7xl  backdrop-blur-xl px-5 h-16 flex items-center shadow-xl z-50 opacity-0 -translate-y-8 pointer-events-none">
 
@@ -285,7 +98,8 @@ window.addEventListener("load", () => {
       </ul>
 
       <div class="flex items-center gap-3">
-        <button class="hidden md:inline-flex bg-black text-white px-5 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium hover:scale-105 transition">
+        <button
+          class="hidden md:inline-flex bg-black text-white px-5 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium hover:scale-105 transition">
           Sign Up
         </button>
         <button onclick="openDrawer()"
@@ -300,16 +114,30 @@ window.addEventListener("load", () => {
   </nav>
 
   <!-- FLOATING SHAPES (decorative, hidden on small screens) -->
-  <div class="hidden sm:block fixed top-10 left-5 w-20 h-20 md:w-28 md:h-28 rounded-full bg-white/70 blur-sm float pointer-events-none"></div>
-  <div class="hidden sm:block fixed top-20 right-12 w-14 h-14 md:w-20 md:h-20 rounded-full bg-white/70 blur-sm float pointer-events-none" style="animation-delay:1s"></div>
-  <div class="hidden sm:block fixed bottom-20 right-5 w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/70 blur-sm float pointer-events-none" style="animation-delay:2s"></div>
+  <div
+    class="hidden sm:block fixed top-10 left-5 w-20 h-20 md:w-28 md:h-28 rounded-full bg-white/70 blur-sm float pointer-events-none">
+  </div>
+  <div
+    class="hidden sm:block fixed top-20 right-12 w-14 h-14 md:w-20 md:h-20 rounded-full bg-white/70 blur-sm float pointer-events-none"
+    style="animation-delay:1s"></div>
+  <div
+    class="hidden sm:block fixed bottom-20 right-5 w-16 h-16 md:w-24 md:h-24 rounded-full bg-white/70 blur-sm float pointer-events-none"
+    style="animation-delay:2s"></div>
 
-  <!-- ===================== HERO SECTION ===================== -->
+
   <section id="hero" class="relative min-h-screen overflow-hidden">
 
     <!-- Background Image -->
-    <img src="https://i.pinimg.com/736x/4b/48/b4/4b48b4655ff9f77848c4ab6644e2f8bf.jpg"
-      alt="" class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0">
+      <img src="https://i.pinimg.com/1200x/1d/f4/07/1df407cae4f542e8fd6d0fbb8df278e1.jpg"
+        class="slide active absolute inset-0 w-full h-full object-cover" alt="">
+
+      <img src="https://i.pinimg.com/736x/90/8d/d5/908dd5e81e1e158572d40657a11230c6.jpg"
+        class="slide absolute inset-0 w-full h-full object-cover" alt="">
+
+      <img src="https://i.pinimg.com/736x/80/c2/be/80c2be3ab14f9627e9e2435e39ee51ce.jpg"
+        class="slide absolute inset-0 w-full h-full object-cover" alt="">
+    </div>
 
     <!-- Overlay -->
     <div class="absolute inset-0 bg-black/20"></div>
@@ -334,7 +162,8 @@ window.addEventListener("load", () => {
         </ul>
 
         <div class="flex items-center gap-2">
-          <button class="hidden md:inline-flex bg-white text-black px-5 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium hover:scale-105 transition">
+          <button
+            class="hidden md:inline-flex bg-white text-black px-5 py-2.5 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium hover:scale-105 transition">
             Sign Up
           </button>
           <button onclick="openDrawer()"
@@ -360,10 +189,12 @@ window.addEventListener("load", () => {
           </p>
 
           <div class="flex flex-wrap gap-3 sm:gap-4 mt-6 sm:mt-8 justify-center md:justify-start">
-            <button class="bg-white text-black px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-medium hover:scale-105 transition text-sm sm:text-base">
+            <button
+              class="bg-white text-black px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-medium hover:scale-105 transition text-sm sm:text-base">
               Explore
             </button>
-            <button class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-medium hover:bg-white/20 transition text-sm sm:text-base">
+            <button
+              class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-medium hover:bg-white/20 transition text-sm sm:text-base">
               Learn More
             </button>
           </div>
@@ -374,13 +205,94 @@ window.addEventListener("load", () => {
     </div>
   </section>
 
-  <!-- ===================== SECOND SECTION ===================== -->
-  <section class="relative py-16 sm:py-20 px-4 sm:px-6 bg-[#F4F3EE] overflow-hidden">
+  <section id="why" class="relative py-16 sm:py-20 bg-[#F4F3EE] overflow-hidden">
 
-    <!-- Top gradient transition -->
+    <!-- Top Gradient -->
     <div class="absolute top-0 left-0 w-full h-40 overflow-hidden pointer-events-none">
-      <div class="absolute inset-0 bg-gradient-to-b from-[#736B1F] via-[#A39A65]/40 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#736B1F] via-[#A39A65]/40 to-transparent"></div>
     </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+
+        <!-- Heading -->
+        <div class="text-center mb-16 reveal-up">
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-black">
+                Why Purva
+            </h2>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-12 items-center">
+
+            <!-- LEFT -->
+            <div class="space-y-12 order-2 lg:order-1">
+
+                <div class="reveal-left">
+                    <h4 class="text-2xl font-semibold">Postnatal Massage</h4>
+                    <p class="mt-4 text-gray-700 leading-relaxed">
+                        Specialized massage therapy to help new mothers regain strength,
+                        balance, and relaxation.
+                    </p>
+                </div>
+
+                <div class="reveal-left delay-200">
+                    <h4 class="text-2xl font-semibold">Holistic Recovery</h4>
+                    <p class="mt-4 text-gray-700 leading-relaxed">
+                        Natural healing methods focused on restoring physical and emotional wellness.
+                    </p>
+                </div>
+
+                <div class="reveal-left delay-400">
+                    <h4 class="text-2xl font-semibold">Expert Therapists</h4>
+                    <p class="mt-4 text-gray-700 leading-relaxed">
+                        Experienced wellness professionals dedicated to personalized care.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- CENTER IMAGE -->
+            <div class="order-1 lg:order-2 flex justify-center">
+                <img
+                    src="assets/images/center.png"
+                    alt="Purva Wellness"
+                    class="reveal-scale w-full max-w-sm lg:max-w-md xl:max-w-lg object-contain"
+                >
+            </div>
+
+            <!-- RIGHT -->
+            <div class="space-y-12 order-3">
+
+                <div class="reveal-right">
+                    <h4 class="text-2xl font-semibold">Personalized Care</h4>
+                    <p class="mt-4 text-gray-700 leading-relaxed">
+                        Every treatment plan is tailored to individual wellness goals.
+                    </p>
+                </div>
+
+                <div class="reveal-right delay-200">
+                    <h4 class="text-2xl font-semibold">Mind & Body Balance</h4>
+                    <p class="mt-4 text-gray-700 leading-relaxed">
+                        Integrated therapies designed to create harmony and relaxation.
+                    </p>
+                </div>
+
+                <div class="reveal-right delay-400">
+                    <h4 class="text-2xl font-semibold">Premium Environment</h4>
+                    <p class="mt-4 text-gray-700 leading-relaxed">
+                        A calm, luxurious space dedicated to your complete wellbeing.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+  <section class="relative  sm:py-20 px-4 sm:px-6 bg-[#F4F3EE] overflow-hidden">
+
+
 
     <div class="max-w-7xl mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -393,7 +305,8 @@ window.addEventListener("load", () => {
           </h2>
 
           <p class="mt-6 sm:mt-8 text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl">
-            We are passionate about helping people achieve a healthier and more balanced lifestyle through professional spa treatments and holistic therapies.
+            We are passionate about helping people achieve a healthier and more balanced lifestyle through professional
+            spa treatments and holistic therapies.
           </p>
 
           <!-- Features -->
@@ -431,8 +344,7 @@ window.addEventListener("load", () => {
 
             <!-- Main image -->
             <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=1000"
-              class="w-full rounded-t-[50%] rounded-b-[24px] object-cover"
-              style="height: clamp(300px, 45vw, 620px)"
+              class="w-full rounded-t-[50%] rounded-b-[24px] object-cover" style="height: clamp(300px, 45vw, 620px)"
               alt="Spa">
 
             <!-- Floating card top-right -->
@@ -440,9 +352,8 @@ window.addEventListener("load", () => {
               style="top: clamp(24px, 5%, 64px)">
               <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800"
                 class="object-cover rounded-xl"
-                style="width: clamp(100px, 18vw, 200px); height: clamp(100px, 18vw, 200px)"
-                alt="Massage">
-              
+                style="width: clamp(100px, 18vw, 200px); height: clamp(100px, 18vw, 200px)" alt="Massage">
+
             </div>
 
             <!-- Floating bottom-left image -->
@@ -459,74 +370,10 @@ window.addEventListener("load", () => {
 
   </section>
 
-  <!-- ===================== SCRIPTS ===================== -->
-  <script>
-    // Floating nav scroll reveal
-    const hero = document.getElementById('hero');
-    const floatingNav = document.getElementById('floatingNav');
 
-    window.addEventListener('scroll', () => {
-      const trigger = hero.offsetHeight - 120;
-      if (window.scrollY > trigger) {
-        floatingNav.classList.remove('opacity-0', '-translate-y-8', 'pointer-events-none');
-        floatingNav.classList.add('opacity-100', 'translate-y-0');
-      } else {
-        floatingNav.classList.add('opacity-0', '-translate-y-8', 'pointer-events-none');
-        floatingNav.classList.remove('opacity-100', 'translate-y-0');
-      }
-    }, { passive: true });
 
-    // Drawer
-    const drawer = document.getElementById('mobileDrawer');
-    const backdrop = document.getElementById('drawerBackdrop');
-
-    function openDrawer() {
-      drawer.classList.add('open');
-      backdrop.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeDrawer() {
-      drawer.classList.remove('open');
-      backdrop.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.getElementById('drawerClose').addEventListener('click', closeDrawer);
-    backdrop.addEventListener('click', closeDrawer);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
-
-    // Scroll reveal
-    document.addEventListener('DOMContentLoaded', () => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      }, { threshold: 0.15 });
-
-      document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => observer.observe(el));
-    });
-
-    // Logo fallback — show text if image 404s
-    document.querySelectorAll('img[alt="Purva"]').forEach(img => {
-      img.addEventListener('error', function () {
-        this.style.display = 'none';
-        const sib = this.nextElementSibling;
-        if (sib) sib.style.display = 'block';
-      });
-    });
-
-    // Slide (for future use)
-    const slides = document.querySelectorAll('.slide');
-    let currentSlide = 0;
-    if (slides.length) {
-      setInterval(() => {
-        slides.forEach(s => s.classList.remove('active'));
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add('active');
-      }, 3000);
-    }
-  </script>
+  <script src="assets/scripts/script.js"></script>
 
 </body>
+
 </html>
